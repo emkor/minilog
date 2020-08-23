@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     container_name: postgres
     volumes:
-      - "./pg_data:/var/lib/postgresql/data"
-      - "./pg_init:/docker-entrypoint-initdb.d:ro"
+      - "./pgsql/data:/var/lib/postgresql/data"
+      - "./pgsql/init:/docker-entrypoint-initdb.d:ro"
     environment:
       - POSTGRES_DB=log
       - POSTGRES_USER=infra

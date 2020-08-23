@@ -1,37 +1,37 @@
 CREATE UNLOGGED TABLE SystemEvents
 (
-    ID SERIAL PRIMARY KEY,
-    CustomerID BIGINT,
-    ReceivedAt TIMESTAMP NULL,
-    DeviceReportedTime TIMESTAMP NULL,
-    Facility SMALLINT NULL,
-    Priority SMALLINT NULL,
-    FromHost VARCHAR(60) NULL,
-    Message TEXT,
-    NTSeverity INT NULL,
-    Importance INT NULL,
-    EventSource VARCHAR(60),
-    EventUser VARCHAR(60) NULL,
-    EventCategory INT NULL,
-    EventID INT NULL,
-    EventBinaryData TEXT NULL,
-    MaxAvailable INT NULL,
-    CurrUsage INT NULL,
-    MinUsage INT NULL,
-    MaxUsage INT NULL,
-    InfoUnitID INT NULL ,
-    SysLogTag VARCHAR(60),
-    EventLogType VARCHAR(60),
-    GenericFileName VARCHAR(60),
-    SystemID INT NULL
+    ID                 SERIAL PRIMARY KEY,
+    CustomerID         BIGINT,
+    ReceivedAt         TIMESTAMP(3) WITH TIME ZONE NULL,
+    DeviceReportedTime TIMESTAMP(3) WITH TIME ZONE NULL,
+    Facility           SMALLINT                    NULL,
+    Priority           SMALLINT                    NULL,
+    FromHost           VARCHAR(60)                 NULL,
+    Message            TEXT,
+    NTSeverity         INT                         NULL,
+    Importance         INT                         NULL,
+    EventSource        VARCHAR(60),
+    EventUser          VARCHAR(60)                 NULL,
+    EventCategory      INT                         NULL,
+    EventID            INT                         NULL,
+    EventBinaryData    TEXT                        NULL,
+    MaxAvailable       INT                         NULL,
+    CurrUsage          INT                         NULL,
+    MinUsage           INT                         NULL,
+    MaxUsage           INT                         NULL,
+    InfoUnitID         INT                         NULL,
+    SysLogTag          VARCHAR(60),
+    EventLogType       VARCHAR(60),
+    GenericFileName    VARCHAR(60),
+    SystemID           INT                         NULL
 );
 
 CREATE UNLOGGED TABLE SystemEventsProperties
 (
-    ID SERIAL PRIMARY KEY,
-    SystemEventID INT NULL,
-    ParamName VARCHAR(255) NULL,
-    ParamValue TEXT NULL
+    ID            SERIAL PRIMARY KEY,
+    SystemEventID INT          NULL,
+    ParamName     VARCHAR(255) NULL,
+    ParamValue    TEXT         NULL
 );
 
 CREATE INDEX SystemEvents_CustomerID_ix ON SystemEvents (CustomerID);
