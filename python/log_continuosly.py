@@ -8,19 +8,14 @@ from rfc5424logging import Rfc5424SysLogHandler
 
 
 def main():
-    # print("Starting")
-    #
-    # with open("/etc/logging.json", "r") as logging_f:
-    #     logging_config = json.load(logging_f)
-    #
-    # config.dictConfig(logging_config)
-    # log = getLogger()
+    print("Starting")
 
-    logger = logging.getLogger('syslogtest')
-    logger.setLevel(logging.INFO)
+    with open("/etc/logging.json", "r") as logging_f:
+        logging_config = json.load(logging_f)
 
-    sh = Rfc5424SysLogHandler(address=('rsyslog', 10514))
-    logger.addHandler(sh)
+    config.dictConfig(logging_config)
+
+    logger = logging.getLogger("app")
 
     logger.info("Syslog test")
     i = 0
@@ -32,7 +27,7 @@ def main():
         elif i % 5:
             logger.warning("buzz")
         i += 1
-        sleep(0.5)
+        sleep(1)
 
 
 if __name__ == '__main__':
