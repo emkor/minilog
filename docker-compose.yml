@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:12
+    restart: unless-stopped
+    container_name: postgres
+    volumes:
+      - "./pg_data:/var/lib/postgresql/data"
+      - "./pg_init:/docker-entrypoint-initdb.d:ro"
+    environment:
+      - POSTGRES_DB=log
+      - POSTGRES_USER=infra
+      - POSTGRES_PASSWORD=infra
+    ports:
+      - "0.0.0.0:5432:5432"
+  adminer:
+    image: adminer:4.7-standalone
+    restart: unless-stopped
+    container_name: adminer
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DESIGN='nette'
+    depends_on:
+      - postgres
+  rsyslog:
+    build:
+      context: ./rsyslog
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    container_name: rsyslog
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    ports:
+      - "0.0.0.0:10514:10514"
+  python_app:
+    build:
+      context: python
+      dockerfile: Dockerfile
+    depends_on:
+      - rsyslog
+    restart: unless-stopped
